@@ -1,5 +1,6 @@
 package com.jujubaprojects.regesc.Service;
 
+import java.util.Optional;
 import java.util.Scanner;
 
 import org.springframework.stereotype.Service;
@@ -12,46 +13,95 @@ public class ProfessorService {
 
     private ProfessorRepository pRepository;
 
-    public ProfessorService(ProfessorRepository pRepository){
-      this.pRepository = pRepository;
+    public ProfessorService(ProfessorRepository pRepository) {
+        this.pRepository = pRepository;
     }
-    
 
-    public void menu(Scanner scanner){
-        
+    public void menu(Scanner scanner) {
+        boolean isTrue = true;
+        Scanner in = new Scanner(System.in);
 
-        Boolean isTrue = true;
-	Scanner in = new Scanner(System.in);
+        while (isTrue) {
+            System.out.println("Qual entidade você deseja interagir"
+                    + "\n 0 - Voltar ao menu anterior"
+                    + "\n 1 - Cadastrar Professor"
+                    + "\n 2 - Atualizar Professor"
+                    + "\n 3 - Visualizar todos os professores"
+                    + "\n 4 - deletar Professor");
+            int op = Integer.parseInt(in.nextLine());
 
-	while(isTrue){
-		System.out.println("Qual entidade vc deseja interarigr"
-		+"\n 0 - Sair" 
-		+"\n 1 - Professor");
-		int op = Integer.parseInt(in.nextLine());
+            switch (op) {
+                case 1:
+                    cadastrar(in);
+                    break;
+                case 2:
+                    atualizar(in);
+                    break;
+                case 3:
+                    visualizar();
+                    break;
 
-	   switch(op){
+                case 4:
+                    deletar(in);    
+                default:
+                    isTrue = false;
+                    break;
+            }
+        }
+    }
 
-		case 1:  this.cadastrar(in); break;
+    private void deletar(Scanner in) {
 
-		default:
-		isTrue = false;  break;
-	   }
-	}
+        System.out.println("Digite o id do Professor a ser atualizado");
+        long id = Long.parseLong(in.nextLine());
 
-}
+        this.pRepository.deleteById(id);
+        System.out.println("Professor com Id: "+id+" Removido com sucesso !");
+      }
 
-     private void cadastrar(Scanner in){
 
+
+    private void visualizar() {
+        Iterable<Professor> professores = this.pRepository.findAll();
+
+        for (Professor professor : professores) {
+            System.out.println(professor);
+        }
+    }
+
+    private void atualizar(Scanner in) {
+        System.out.println("Digite o id do Professor a ser atualizado");
+        long id = Long.parseLong(in.nextLine());
+
+        Optional<Professor> professorOptional = this.pRepository.findById(id);
+
+        if (professorOptional.isPresent()) {
+            Professor professor = professorOptional.get();
+
+            System.out.println("Digite o nome do Professor");
+            String nome = in.nextLine();
+
+            System.out.println("Digite o prontuário do Professor");
+            String prontuario = in.nextLine();
+
+            professor.setNome(nome);
+            professor.setProntuario(prontuario);
+            pRepository.save(professor);
+            System.out.println("Professor atualizado com sucesso");
+        } else {
+            System.out.println("O ID do Professor informado: " + id + " é inválido\n");
+        }
+    }
+
+    private void cadastrar(Scanner in) {
         System.out.println("Digite o nome do Professor");
         String nome = in.nextLine();
-    
-        System.out.println("Digite o prontuario do Professor");
+
+        System.out.println("Digite o prontuário do Professor");
         String prontuario = in.nextLine();
 
-        Professor professor = new Professor(nome , prontuario);
+        Professor professor = new Professor(nome, prontuario);
         pRepository.save(professor);
-        System.out.println(" \n Professor salvo no Banco !!!");
-    
-    }
-
-}
+        System.out.println("\nProfessor salvo no Banco!!!");
+     }
+ }

@@ -36,12 +36,21 @@ public class RegescApplication implements CommandLineRunner{
 	while(isTrue){
 		System.out.println("Qual entidade vc deseja interarigr"
 		+"\n 0 - Sair" 
-		+"\n 1 - Professor");
+		+"\n 1 - cadastrar Professor"
+        +"\n 2 - atualizar Professor"
+		+"\n 3 - Visualizar todos os professores"
+		+"\n 4 - deletar Professor");
 		int op = Integer.parseInt(in.nextLine());
 
 	   switch(op){
 		 
 		case 1: this.professorService.menu(in); break;
+
+		case 2: this.professorService.menu(in); break;
+
+		case 3: this.professorService.menu(in); break;
+
+		case 4: this.professorService.menu(in); break;
        
 		default : isTrue = false;  break;
 	   }

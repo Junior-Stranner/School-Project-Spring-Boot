@@ -1,40 +1,39 @@
 package com.jujubaprojects.regesc.Model;
 
-import java.util.List;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "Professores")
-public class Professor {
+@Table(name = "disciplinas")
+public class Disciplina {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @Column(nullable = false)
     private String nome;
-    @Column(nullable = false,unique = true)
-    private String prontuario;
+    private int semestre;
 
-   @OneToMany(mappedBy = "professor")
-   private List<Disciplina> disciplinas;
+    @ManyToOne
+     @JoinColumn(name = "professor_id", nullable = true)
+    private Professor professor;
 
-   
-    public Professor( String nome, String prontuario) {
-        this.nome = nome;
-        this.prontuario = prontuario;
+
+
+    public Disciplina(){
+        
     }
 
-    public Professor() {
-        
+    public Disciplina(String nome, int semestre) {
+        this.nome = nome;
+        this.semestre = semestre;
     }
 
     public long getId() {
@@ -53,19 +52,14 @@ public class Professor {
         this.nome = nome;
     }
 
-    public String getProntuario() {
-        return prontuario;
+    public int getSemestre() {
+        return semestre;
     }
 
-    public void setProntuario(String prontuario) {
-        this.prontuario = prontuario;
+    public void setSemestre(int semestre) {
+        this.semestre = semestre;
     }
 
-    @Override
-    public String toString() {
-        return "Professor [id=" + id + ", nome=" + nome + ", prontuario=" + prontuario + "]";
-    }
-  
-   
-  
+    
+    
 }
