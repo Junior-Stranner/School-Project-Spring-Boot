@@ -6,6 +6,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import com.jujubaprojects.regesc.Model.Disciplina;
+import com.jujubaprojects.regesc.Service.DisciplinaService;
 import com.jujubaprojects.regesc.Service.ProfessorService;
 
 
@@ -13,12 +15,14 @@ import com.jujubaprojects.regesc.Service.ProfessorService;
 public class RegescApplication implements CommandLineRunner{
 
     private ProfessorService professorService;
+	private DisciplinaService disciplinaService;
 
 
-	public RegescApplication(ProfessorService professorService){
+	public RegescApplication(ProfessorService professorService , DisciplinaService disciplinaService){
 		this.professorService = professorService;
-	}
+        this.disciplinaService = disciplinaService;
 
+	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(RegescApplication.class, args);
@@ -36,21 +40,16 @@ public class RegescApplication implements CommandLineRunner{
 	while(isTrue){
 		System.out.println("Qual entidade vc deseja interarigr"
 		+"\n 0 - Sair" 
-		+"\n 1 - cadastrar Professor"
-        +"\n 2 - atualizar Professor"
-		+"\n 3 - Visualizar todos os professores"
-		+"\n 4 - deletar Professor");
+		+"\n 1 - Professor"
+        +"\n 2 - Disciplina");
 		int op = Integer.parseInt(in.nextLine());
 
 	   switch(op){
 		 
-		case 1: this.professorService.menu(in); break;
+		case 1: this.professorService.menu(); break;
 
-		case 2: this.professorService.menu(in); break;
+		case 2: this.disciplinaService.menu(); break;
 
-		case 3: this.professorService.menu(in); break;
-
-		case 4: this.professorService.menu(in); break;
        
 		default : isTrue = false;  break;
 	   }

@@ -1,13 +1,17 @@
 package com.jujubaprojects.regesc.Model;
 
+import org.hibernate.query.sqm.FetchClauseType;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.PreRemove;
 import jakarta.persistence.Table;
 
 @Entity
@@ -21,8 +25,8 @@ public class Disciplina {
     private String nome;
     private int semestre;
 
-    @ManyToOne
-     @JoinColumn(name = "professor_id", nullable = true)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "professor_id",nullable = false)
     private Professor professor;
 
 
@@ -31,9 +35,22 @@ public class Disciplina {
         
     }
 
-    public Disciplina(String nome, int semestre) {
+ 
+
+    public Disciplina(String nome, int semestre, Professor professor) {
         this.nome = nome;
         this.semestre = semestre;
+        this.professor = professor;
+    }
+
+
+
+    public Professor getProfessor() {
+        return professor;
+    }
+
+    public void setProfessor(Professor professor) {
+        this.professor = professor;
     }
 
     public long getId() {
@@ -58,6 +75,13 @@ public class Disciplina {
 
     public void setSemestre(int semestre) {
         this.semestre = semestre;
+    }
+
+ 
+
+    @Override
+    public String toString() {
+        return "Disciplina [id=" + id + ", nome=" + nome + ", semestre=" + semestre + ", professor=" + professor + "]";
     }
 
     
