@@ -138,5 +138,6 @@ public class ProfessorService {
         Professor professor = new Professor(nome, prontuario);
         pRepository.save(professor);
         System.out.println("\nProfessor salvo no Banco!!!");
-     }
+     
+    }
  }
