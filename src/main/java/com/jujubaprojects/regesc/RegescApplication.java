@@ -6,7 +6,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.jujubaprojects.regesc.Model.Disciplina;
+import com.jujubaprojects.regesc.Service.AlunoService;
 import com.jujubaprojects.regesc.Service.DisciplinaService;
 import com.jujubaprojects.regesc.Service.ProfessorService;
 
@@ -16,11 +16,15 @@ public class RegescApplication implements CommandLineRunner{
 
     private ProfessorService professorService;
 	private DisciplinaService disciplinaService;
+	private AlunoService alunoService;
 
-
-	public RegescApplication(ProfessorService professorService , DisciplinaService disciplinaService){
+/*os objetos passado por paramêtro são injetados automáticamente pelo spring
+ * pq suas classes possuem a anotação @service
+ */
+	public RegescApplication(ProfessorService professorService , DisciplinaService disciplinaService, AlunoService alunoService){
 		this.professorService = professorService;
         this.disciplinaService = disciplinaService;
+		this.alunoService = alunoService;
 
 	}
 
@@ -41,7 +45,8 @@ public class RegescApplication implements CommandLineRunner{
 		System.out.println("Qual entidade vc deseja interarigr"
 		+"\n 0 - Sair" 
 		+"\n 1 - Professor"
-        +"\n 2 - Disciplina");
+        +"\n 2 - Disciplina"
+		+"\n 3 - aluno");
 		int op = Integer.parseInt(in.nextLine());
 
 	   switch(op){
@@ -49,6 +54,8 @@ public class RegescApplication implements CommandLineRunner{
 		case 1: this.professorService.menu(); break;
 
 		case 2: this.disciplinaService.menu(); break;
+
+		case 3: this.alunoService.menu(in);break;
 
        
 		default : isTrue = false;  break;

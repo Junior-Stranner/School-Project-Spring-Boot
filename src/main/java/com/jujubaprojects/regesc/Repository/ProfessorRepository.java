@@ -1,6 +1,5 @@
 package com.jujubaprojects.regesc.Repository;
 
-import java.util.Scanner;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;

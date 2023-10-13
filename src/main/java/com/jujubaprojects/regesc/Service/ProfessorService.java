@@ -57,6 +57,7 @@ public class ProfessorService {
         }
     }
 
+    @Transactional
     private void visualizarProfessor(Scanner in) {
 
         System.out.println("digite o id do Professor ");
