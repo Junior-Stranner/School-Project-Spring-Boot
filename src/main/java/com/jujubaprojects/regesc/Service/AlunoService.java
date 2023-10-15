@@ -109,6 +109,7 @@ private void visualizarAluno(Scanner in) {
         for (Aluno aluno : alunos) {
             System.out.println(aluno);
         }
+        System.out.println("---------------------");
     }
 
     private void atualizar(Scanner in) {
