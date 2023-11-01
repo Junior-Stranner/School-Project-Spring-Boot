@@ -66,7 +66,7 @@ public class RelatorioService {
             System.out.print("Nome Aluno :");
             String nome = in.nextLine();
 
-            List<Aluno> alunos = alunoRepository.findByFirstnameStartingWith(nome);
+            List<Aluno> alunos = alunoRepository.findByNomeStartingWith(nome);
 
             for (Aluno aluno : alunos) {
             System.out.println(alunos);

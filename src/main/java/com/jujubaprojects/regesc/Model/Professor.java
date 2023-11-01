@@ -2,6 +2,7 @@ package com.jujubaprojects.regesc.Model;
 
 import java.util.List;
 
+import com.jujubaprojects.regesc.Validation.PermitirAcessoProfessor;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -14,7 +15,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "Professores")
-public class Professor {
+public class Professor implements PermitirAcessoProfessor {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,9 +28,7 @@ public class Professor {
    @OneToMany(mappedBy = "professor",cascade = CascadeType.ALL)
    private List<Disciplina> disciplinas;
 
-   
-   
-   
+
 
     public Professor( String nome, String prontuario) {
 
@@ -91,7 +90,11 @@ public class Professor {
     public void setDisciplinas(List<Disciplina> disciplinas) {
         this.disciplinas = disciplinas;
     }
-  
-   
-  
+
+
+    @Override
+    public boolean autenticar(String login, String senha) {
+
+        return login.equals("admin") && senha.equals("admin");
+    }
 }

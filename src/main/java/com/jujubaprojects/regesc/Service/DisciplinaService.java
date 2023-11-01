@@ -58,7 +58,7 @@ public class DisciplinaService {
                 break;
 
             case 4:
-                deletar(in);    
+                deletar(in);  break;
 
             case 5 : matricularAluno(in);
             default:
@@ -156,7 +156,7 @@ public class DisciplinaService {
             if (professorOptional.isPresent()) {
             Professor professor = professorOptional.get();
     
-
+                
          //   disciplina.setId(id);
             disciplina.setNome(nome);
             disciplina.setSemestre(semestre);

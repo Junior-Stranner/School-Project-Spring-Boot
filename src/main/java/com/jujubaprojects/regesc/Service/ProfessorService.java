@@ -3,6 +3,7 @@ package com.jujubaprojects.regesc.Service;
 import java.util.Optional;
 import java.util.Scanner;
 
+import com.jujubaprojects.regesc.Validation.PermitirAcessoProfessor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -130,15 +131,30 @@ public class ProfessorService {
     }
 
     private void cadastrar(Scanner in) {
-        System.out.println("Digite o nome do Professor");
-        String nome = in.nextLine();
 
-        System.out.println("Digite o prontuário do Professor");
-        String prontuario = in.nextLine();
+        System.out.println("Informe o Login ");
+        String login = in.nextLine();
+        System.out.println("Informe a Senha ");
+        String senha = in.nextLine();
 
-        Professor professor = new Professor(nome, prontuario);
-        pRepository.save(professor);
-        System.out.println("\nProfessor salvo no Banco!!!");
+        PermitirAcessoProfessor acessoProf = new Professor();
+
+        if(acessoProf.autenticar(login,senha)) {
+
+
+            System.out.println("Digite o nome do Professor");
+            String nome = in.nextLine();
+
+            System.out.println("Digite o prontuário do Professor");
+            String prontuario = in.nextLine();
+
+            Professor professor = new Professor(nome, prontuario);
+            pRepository.save(professor);
+            System.out.println("\nProfessor salvo no Banco!!!");
+
+        }else{
+            System.out.println("Erro ao logar ....");
+        }
      
     }
  }

@@ -10,7 +10,7 @@ public interface AlunoRepository extends CrudRepository <Aluno, Long>{
     
     List<Aluno> findByNome(String nome);
 
-    List<Aluno> findByFirstnameStartingWith(String termo);
+    List<Aluno> findByNomeStartingWith(String termo);
 
     List<Aluno> findByNomeStartingWithAndIdadeLessThanEqual(String nome, int idade);
 }
